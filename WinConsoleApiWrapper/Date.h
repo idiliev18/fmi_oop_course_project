@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
 
-class Date {
+class Date 
+{
 private:
     int year;
     int month;
@@ -9,9 +10,7 @@ private:
     int hour;
     int minute;
     int second;
-
 public:
-
     Date();
     void setToNow();
     std::string toString() const;

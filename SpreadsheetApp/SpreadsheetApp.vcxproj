@@ -128,12 +128,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\WinConsoleApiWrapper\Cell.cpp" />
+    <ClCompile Include="..\WinConsoleApiWrapper\Date.cpp" />
+    <ClCompile Include="DoubleValue.cpp" />
+    <ClCompile Include="IntValue.cpp" />
     <ClCompile Include="SpreadsheetApp.cpp" />
+    <ClCompile Include="StringValue.cpp" />
+    <ClCompile Include="Table.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WinConsoleApiWrapper\WinConsoleApiWrapper.vcxproj">
       <Project>{a3101c73-01e4-407d-ad48-a1bc6dcfe7bb}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\WinConsoleApiWrapper\Cell.h" />
+    <ClInclude Include="..\WinConsoleApiWrapper\Date.h" />
+    <ClInclude Include="CellValue.h" />
+    <ClInclude Include="DoubleValue.h" />
+    <ClInclude Include="IntValue.h" />
+    <ClInclude Include="StringValue.h" />
+    <ClInclude Include="Table.h" />
+    <ClInclude Include="enums.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

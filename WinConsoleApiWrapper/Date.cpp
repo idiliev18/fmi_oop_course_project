@@ -9,13 +9,14 @@ Date::Date()
 void Date::setToNow() 
 {
     std::time_t now = std::time(0);
-    std::tm* ltm = std::localtime(&now);
-    year = 1900 + ltm->tm_year;
-    month = 1 + ltm->tm_mon;
-    day = ltm->tm_mday;
-    hour = ltm->tm_hour;
-    minute = ltm->tm_min;
-    second = ltm->tm_sec;
+    std::tm ltm;
+    localtime_s(&ltm, &now);
+    year = 1900 + ltm.tm_year;
+    month = 1 + ltm.tm_mon;
+    day = ltm.tm_mday;
+    hour = ltm.tm_hour;
+    minute = ltm.tm_min;
+    second = ltm.tm_sec;
 }
 
 

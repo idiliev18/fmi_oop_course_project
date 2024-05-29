@@ -13,10 +13,60 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Cell Values">
+      <UniqueIdentifier>{4d4b59ad-c9ad-4df8-85d0-713834f3f2be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Cell Values">
+      <UniqueIdentifier>{08e07b03-e6d9-4fbf-9af1-cd1858bf209c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SpreadsheetApp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\WinConsoleApiWrapper\Cell.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\WinConsoleApiWrapper\Date.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Table.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IntValue.cpp">
+      <Filter>Source Files\Cell Values</Filter>
+    </ClCompile>
+    <ClCompile Include="DoubleValue.cpp">
+      <Filter>Source Files\Cell Values</Filter>
+    </ClCompile>
+    <ClCompile Include="StringValue.cpp">
+      <Filter>Source Files\Cell Values</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\WinConsoleApiWrapper\Cell.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\WinConsoleApiWrapper\Date.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Table.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="enums.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IntValue.h">
+      <Filter>Header Files\Cell Values</Filter>
+    </ClInclude>
+    <ClInclude Include="DoubleValue.h">
+      <Filter>Header Files\Cell Values</Filter>
+    </ClInclude>
+    <ClInclude Include="StringValue.h">
+      <Filter>Header Files\Cell Values</Filter>
+    </ClInclude>
+    <ClInclude Include="CellValue.h">
+      <Filter>Header Files\Cell Values</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
