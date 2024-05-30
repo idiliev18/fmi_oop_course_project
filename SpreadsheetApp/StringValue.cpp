@@ -17,5 +17,5 @@ CellValue* StringValue::clone() const
 
 ValueType StringValue::getType() const
 {
-    return ValueType::DOUBLE;
+    return ValueType::STRING;
 }

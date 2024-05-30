@@ -2,14 +2,20 @@
 #include "IntValue.h"
 #include "DoubleValue.h"
 #include "StringValue.h"
+#include <iostream>
+#include <windows.h>
+using namespace std;
 
 int main() 
 {
     Table table(6, 10);
 
-    table.getCell(0, 0).cellValue = new IntValue(42);
-    table.getCell(0, 1).cellValue = new DoubleValue(3.14159);
-    table.getCell(0, 2).cellValue = new StringValue("PRESLAVAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    table.setCellValue("R2C1", "Kondio");
+    table.setCellValue("R3C1", "2");
+    table.setCellValue("R4C1", "4.455");
+    Sleep(1000);
+    table.setCellValue("R5C1", "Azis");
+    table.setCellValue("R6C1", "Galena");
 
     table.handleInput();
 }

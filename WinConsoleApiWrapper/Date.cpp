@@ -25,7 +25,7 @@ std::string Date::toString() const
     std::string result;
     result += std::to_string(year) + "-";
     result += (month < 10 ? "0" : "") + std::to_string(month) + "-";
-    result += (day < 10 ? "0" : "") + std::to_string(day) + "T";
+    result += (day < 10 ? "0" : "") + std::to_string(day) + " ";
     result += (hour < 10 ? "0" : "") + std::to_string(hour) + ":";
     result += (minute < 10 ? "0" : "") + std::to_string(minute) + ":";
     result += (second < 10 ? "0" : "") + std::to_string(second);

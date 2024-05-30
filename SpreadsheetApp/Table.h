@@ -1,6 +1,10 @@
+#ifndef TABLE_H
+#define TABLE_H
 
 #include "Cell.h"
 #include <windows.h>
+#include <string>
+#include <utility>
 
 class Table {
 public:
@@ -11,6 +15,7 @@ public:
     int getHeight() const;
     Cell& getCell(int row, int col);
     const Cell& getCell(int row, int col) const;
+    void setCellValue(const std::string& address, const std::string& value);
 
     void print() const;
     void handleInput();
@@ -24,6 +29,7 @@ private:
     bool inEditMode;
 
     int calculateMaxCellWidth() const;
+    int getMaxCellValueLength() const;
     void moveUp();
     void moveDown();
     void moveLeft();
@@ -36,5 +42,10 @@ private:
     void updateCell(int row, int col, bool highlight) const;
     void clearLine(int y) const;
     void clearScreen() const;
+
+    bool isInteger(const std::string& str) const;
+    bool isDouble(const std::string& str) const;
+    std::pair<int, int> parseAddress(const std::string& address) const;
 };
 
+#endif // TABLE_H
