@@ -10,7 +10,7 @@ int main()
 {
     Table table(6, 10);
 
-    table.setCellValue("R2C1", "Kondio");
+    table.setCellValue("R2C1", "Kondidddddddddddddddddddddddddo");
     table.setCellValue("R3C1", "2");
     table.setCellValue("R4C1", "4.455");
     Sleep(1000);

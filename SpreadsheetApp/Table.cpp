@@ -95,20 +95,39 @@ int Table::getMaxCellValueLength() const
     return maxLength;
 }
 
-void Table::print() const
+void Table::print() const 
 {
     clearScreen();
     int cellWidth = calculateMaxCellWidth() + 2;
 
-    for (int row = 0; row < height; row++)
+    std::cout << "     ";
+    for (int col = 0; col < width; col++) 
     {
-        for (int col = 0; col < width; col++)
-        {
+        std::string colHeader = "C" + std::to_string(col + 1);
+        int paddingLeft = (cellWidth - colHeader.length()) / 2;
+        int paddingRight = cellWidth - colHeader.length() - paddingLeft;
+        std::cout << "|" << std::string(paddingLeft, ' ') << colHeader << std::string(paddingRight, ' ');
+    }
+    std::cout << "|" << std::endl;
+
+    std::cout << "     "; 
+    for (int col = 0; col < width; col++) {
+        std::cout << "+" << std::setw(cellWidth) << std::setfill('-') << "-";
+    }
+    std::cout << "+" << std::setfill(' ') << std::endl;
+
+    for (int row = 0; row < height; row++) 
+    {
+        std::string rowHeader = "R" + std::to_string(row + 1);
+        std::cout << std::setw(4) << std::right << rowHeader << " "; 
+
+        for (int col = 0; col < width; col++) {
             printCell(row, col, row == currentRow && col == currentCol);
         }
         std::cout << "|" << std::endl;
-        for (int col = 0; col < width; ++col)
-        {
+       
+        std::cout << "     ";
+        for (int col = 0; col < width; col++) {
             std::cout << "+" << std::setw(cellWidth) << std::setfill('-') << "-";
         }
         std::cout << "+" << std::setfill(' ') << std::endl;
@@ -186,7 +205,7 @@ void Table::moveRight()
     if (currentCol < width - 1) currentCol++;
 }
 
-void Table::gotoXY(int x, int y) const
+void Table::gotoXY(int x, int y) const 
 {
     COORD coord = { static_cast<SHORT>(x), static_cast<SHORT>(y) };
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
@@ -195,7 +214,7 @@ void Table::gotoXY(int x, int y) const
 void Table::printSelectedCellValue() const 
 {
     int x = 0;
-    int y = height * 2 + 2;
+    int y = height * 2 + 3;
 
     const Cell& cell = getCell(currentRow, currentCol);
     std::string valueStr = cell.cellValue ? cell.cellValue->toString() : "......";
@@ -234,8 +253,6 @@ void Table::printSelectedCellValue() const
     std::cout << "      " << std::string(cellDetailWidth + 17, '-') << "      \n";
 }
 
-
-
 void Table::printCell(int row, int col, bool highlight) const
 {
     const Cell& cell = getCell(row, col);
@@ -264,7 +281,7 @@ void Table::printCell(int row, int col, bool highlight) const
 void Table::toggleMode()
 {
     inEditMode = !inEditMode;
-    int editLineY = height * 2 + 4;
+    int editLineY = height * 2 + 8;
     if (inEditMode)
     {
         clearLine(editLineY);
@@ -282,7 +299,7 @@ void Table::toggleMode()
 
 void Table::handleEditMode()
 {
-    int editLineY = height * 2 + 4;
+    int editLineY = height * 2 + 8;
     gotoXY(11, editLineY);
     std::cout.flush();
     std::string input;
@@ -293,12 +310,12 @@ void Table::handleEditMode()
     printSelectedCellValue();
 }
 
-void Table::updateCell(int row, int col, bool highlight) const
+void Table::updateCell(int row, int col, bool highlight) const 
 {
     int cellWidth = calculateMaxCellWidth() + 2;
 
-    int x = col * (cellWidth + 1);
-    int y = row * 2;
+    int x = col * (cellWidth + 1) + 5; 
+    int y = row * 2 + 2;
 
     gotoXY(x, y);
     printCell(row, col, highlight);
@@ -348,7 +365,7 @@ std::pair<int, int> Table::parseAddress(const std::string& address) const
 {
     if (address.size() < 4 || address[0] != 'R' || address[2] != 'C' || !std::isdigit(address[1]) || !std::isdigit(address[3])) 
     {
-        throw std::invalid_argument("Invalid address format");
+        // error
     }
     int row = std::stoi(address.substr(1, address.find('C') - 1)) - 1;
     int col = std::stoi(address.substr(address.find('C') + 1)) - 1;
