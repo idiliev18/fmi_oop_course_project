@@ -2,6 +2,7 @@
 #include "IntValue.h"
 #include "DoubleValue.h"
 #include "StringValue.h"
+#include "FormulaValue.h"
 #include "Date.h"
 
 #include <iostream>
@@ -211,13 +212,33 @@ void Table::gotoXY(int x, int y) const
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
-void Table::printSelectedCellValue() const 
+void Table::printSelectedCellValue() const
 {
     int x = 0;
     int y = height * 2 + 2;
 
     const Cell& cell = getCell(currentRow, currentCol);
-    std::string valueStr = cell.cellValue ? cell.cellValue->toString() : "......";
+    std::string valueStr;
+    if (cell.cellValue) 
+    {
+        if (cell.cellValue->getType() == ValueType::FORMULA)
+        {
+            const FormulaValue* formulaValue = dynamic_cast<const FormulaValue*>(cell.cellValue);
+            if (formulaValue) 
+            {
+                valueStr = formulaValue->getFormula();
+            }
+        }
+        else 
+        {
+            valueStr = cell.cellValue->toString();
+        }
+    }
+    else 
+    {
+        valueStr = "......";
+    }
+
     std::string typeStr;
     switch (cell.cellValue ? cell.cellValue->getType() : ValueType::NONE) {
     case ValueType::INT:
@@ -466,12 +487,15 @@ void Table::setCellValue(const std::string& address, const std::string& value)
 
     delete cell.cellValue;
 
-    
-    if (isInteger(value))
+    if (value[0] == '=') 
+    {
+        cell.cellValue = new FormulaValue(value, this);
+    }
+    else if (isInteger(value)) 
     {
         cell.cellValue = new IntValue(std::stoi(value));
     }
-    else if (isDouble(value))
+    else if (isDouble(value)) 
     {
         cell.cellValue = new DoubleValue(std::stod(value));
     }
