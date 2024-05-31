@@ -42,6 +42,12 @@
     <ClCompile Include="StringValue.cpp">
       <Filter>Source Files\Cell Values</Filter>
     </ClCompile>
+    <ClCompile Include="FormulaValue.cpp">
+      <Filter>Source Files\Cell Values</Filter>
+    </ClCompile>
+    <ClCompile Include="CellValue.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\WinConsoleApiWrapper\Cell.h">
@@ -66,6 +72,9 @@
       <Filter>Header Files\Cell Values</Filter>
     </ClInclude>
     <ClInclude Include="CellValue.h">
+      <Filter>Header Files\Cell Values</Filter>
+    </ClInclude>
+    <ClInclude Include="FormulaValue.h">
       <Filter>Header Files\Cell Values</Filter>
     </ClInclude>
   </ItemGroup>

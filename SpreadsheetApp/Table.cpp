@@ -214,7 +214,7 @@ void Table::gotoXY(int x, int y) const
 void Table::printSelectedCellValue() const 
 {
     int x = 0;
-    int y = height * 2 + 3;
+    int y = height * 2 + 2;
 
     const Cell& cell = getCell(currentRow, currentCol);
     std::string valueStr = cell.cellValue ? cell.cellValue->toString() : "......";
@@ -256,6 +256,7 @@ void Table::printSelectedCellValue() const
 void Table::printCell(int row, int col, bool highlight) const
 {
     const Cell& cell = getCell(row, col);
+    
     std::string valueStr = cell.cellValue ? cell.cellValue->toString() : "";
     if (valueStr.length() > MAX_CELL_DISPLAY_WIDTH)
     {
@@ -281,7 +282,7 @@ void Table::printCell(int row, int col, bool highlight) const
 void Table::toggleMode()
 {
     inEditMode = !inEditMode;
-    int editLineY = height * 2 + 8;
+    int editLineY = height * 2 + 7;
     if (inEditMode)
     {
         clearLine(editLineY);
@@ -297,18 +298,96 @@ void Table::toggleMode()
     }
 }
 
+void Table::clearCellValue(const std::string& address)
+{
+    std::pair<int, int> addressPair = parseAddress(address);
+    int row = addressPair.first;
+    int col = addressPair.second;
+
+    if (row < 0 || row >= height || col < 0 || col >= width)
+    {
+        throw std::out_of_range("Cell index out of range");
+    }
+
+    Cell& cell = cells[row][col];
+    delete cell.cellValue;
+    cell.cellValue = nullptr;
+    cell.lastModifiedDate = Date();
+}
+
+
 void Table::handleEditMode()
 {
-    int editLineY = height * 2 + 8;
-    gotoXY(11, editLineY);
-    std::cout.flush();
-    std::string input;
-    std::getline(std::cin, input);
-    clearLine(editLineY);
+    int editLineY = height * 2 + 7;
+
+    while (true) 
+    {
+        gotoXY(11, editLineY);
+        std::cout.flush();
+
+        std::string input;
+        std::getline(std::cin, input);
+ 
+        clearLine(editLineY);
+        gotoXY(0, editLineY);
+        std::cout << "Edit mode: ";
+        gotoXY(11, editLineY);
+
+        std::istringstream iss(input);
+        std::string command, cellAddress, value;
+
+        iss >> command >> cellAddress;
+        std::getline(iss, value);
+        if (!value.empty() && value[0] == ' ') 
+        {
+            value.erase(0, 1);
+        }
+
+        bool commandSuccess = false;
+
+        if (command == "Edit" && !cellAddress.empty() && !value.empty()) {
+            try {
+                setCellValue(cellAddress, value);
+                commandSuccess = true;
+            }
+            catch (const std::exception& e) 
+            {
+                gotoXY(0, editLineY + 1);
+                std::cout << "\033[41m" << "Error: " << e.what() << "\033[0m" << std::endl;
+            }
+        }
+        else if (command == "Clear" && !cellAddress.empty()) 
+        {
+            try 
+            {
+                clearCellValue(cellAddress);
+                commandSuccess = true;
+            }
+            catch (const std::exception& e) 
+            {
+                gotoXY(0, editLineY + 1); 
+                std::cout << "\033[41m" << "Error: " << e.what() << "\033[0m" << std::endl; 
+            }
+        }
+        else 
+        {
+            gotoXY(0, editLineY + 1);
+            std::cout << "\033[41m" << "Invalid command format. Use: Edit <cellAddress> <value> or Clear <cellAddress>" << "\033[0m" << std::endl; // Red background
+        }
+
+
+        if (commandSuccess)
+        {
+            break;
+        }
+
+    }
+    
     inEditMode = false;
     print();
     printSelectedCellValue();
 }
+
 
 void Table::updateCell(int row, int col, bool highlight) const 
 {
@@ -372,7 +451,7 @@ std::pair<int, int> Table::parseAddress(const std::string& address) const
     return { row, col };
 }
 
-void Table::setCellValue(const std::string& address, const std::string& value) 
+void Table::setCellValue(const std::string& address, const std::string& value)
 {
     std::pair<int, int> addressPair = parseAddress(address);
     int row = addressPair.first;
@@ -380,22 +459,23 @@ void Table::setCellValue(const std::string& address, const std::string& value)
 
     if (row < 0 || row >= height || col < 0 || col >= width)
     {
-        // error
+        throw std::out_of_range("Cell index out of range");
     }
 
     Cell& cell = cells[row][col];
 
     delete cell.cellValue;
 
+    
     if (isInteger(value))
     {
         cell.cellValue = new IntValue(std::stoi(value));
     }
-    else if (isDouble(value)) 
+    else if (isDouble(value))
     {
         cell.cellValue = new DoubleValue(std::stod(value));
     }
-    else 
+    else
     {
         cell.cellValue = new StringValue(value);
     }

@@ -16,7 +16,9 @@ public:
     Cell& getCell(int row, int col);
     const Cell& getCell(int row, int col) const;
     void setCellValue(const std::string& address, const std::string& value);
-
+    void clearCellValue(const std::string& address);
+    bool isInteger(const std::string& str) const;
+    bool isDouble(const std::string& str) const;
     void print() const;
     void handleInput();
 
@@ -43,8 +45,7 @@ private:
     void clearLine(int y) const;
     void clearScreen() const;
 
-    bool isInteger(const std::string& str) const;
-    bool isDouble(const std::string& str) const;
+    
     std::pair<int, int> parseAddress(const std::string& address) const;
 };
 

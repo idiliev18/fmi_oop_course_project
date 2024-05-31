@@ -130,7 +130,9 @@
   <ItemGroup>
     <ClCompile Include="..\WinConsoleApiWrapper\Cell.cpp" />
     <ClCompile Include="..\WinConsoleApiWrapper\Date.cpp" />
+    <ClCompile Include="CellValue.cpp" />
     <ClCompile Include="DoubleValue.cpp" />
+    <ClCompile Include="FormulaValue.cpp" />
     <ClCompile Include="IntValue.cpp" />
     <ClCompile Include="SpreadsheetApp.cpp" />
     <ClCompile Include="StringValue.cpp" />
@@ -146,6 +148,7 @@
     <ClInclude Include="..\WinConsoleApiWrapper\Date.h" />
     <ClInclude Include="CellValue.h" />
     <ClInclude Include="DoubleValue.h" />
+    <ClInclude Include="FormulaValue.h" />
     <ClInclude Include="IntValue.h" />
     <ClInclude Include="StringValue.h" />
     <ClInclude Include="Table.h" />
