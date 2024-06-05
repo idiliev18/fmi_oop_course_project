@@ -31,3 +31,13 @@ std::string Date::toString() const
     result += (second < 10 ? "0" : "") + std::to_string(second);
     return result;
 }
+
+void Date::fromString(const std::string& dateStr)
+{
+    year = std::atoi(dateStr.substr(0, 4).c_str());
+    month = std::atoi(dateStr.substr(5, 2).c_str());
+    day = std::atoi(dateStr.substr(8, 2).c_str());
+    hour = std::atoi(dateStr.substr(11, 2).c_str());
+    minute = std::atoi(dateStr.substr(14, 2).c_str());
+    second = std::atoi(dateStr.substr(17, 2).c_str());
+}

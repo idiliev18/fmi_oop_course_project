@@ -11,4 +11,5 @@ public:
     std::string toString() const override;
     CellValue* clone() const override;
     ValueType getType() const override;
+    double getValue() const;
 };

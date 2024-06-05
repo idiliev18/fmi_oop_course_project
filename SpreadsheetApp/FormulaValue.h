@@ -1,25 +1,25 @@
+#pragma once
+
 #include "CellValue.h"
-#include "Table.h"
 #include <string>
-#include <vector>
+#include <stdexcept>
 
-class FormulaValue : public CellValue 
+class Table;
+
+class FormulaValue : public CellValue
 {
-private:
-    std::string cellValue;
-    Table* table; 
-
 public:
-    FormulaValue(const std::string& formula, Table* table);
+    FormulaValue(const std::string& formula, const Table* table);
     std::string toString() const override;
-    std::string getFormula() const;
     CellValue* clone() const override;
     ValueType getType() const override;
-    double evaluate() const;
+    const std::string& getFormula() const;
 
 private:
-    double parseAndEvaluate(const std::string& formula) const;
-    std::pair<int, int> parseCellAddress(const std::string& address) const;
-    double parseTerm(const std::string& term) const;
-};
+    std::string formula;
+    const Table* table;
+    mutable bool hasError;
 
+    double evaluate() const;
+    double getCellValue(const std::string& cellAddress) const;
+};

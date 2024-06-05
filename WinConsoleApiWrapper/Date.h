@@ -14,4 +14,5 @@ public:
     Date();
     void setToNow();
     std::string toString() const;
+    void fromString(const std::string& dateStr);
 };

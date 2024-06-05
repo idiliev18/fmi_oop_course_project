@@ -48,6 +48,12 @@
     <ClCompile Include="CellValue.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MenuOption.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\WinConsoleApiWrapper\Cell.h">
@@ -76,6 +82,12 @@
     </ClInclude>
     <ClInclude Include="FormulaValue.h">
       <Filter>Header Files\Cell Values</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuOption.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

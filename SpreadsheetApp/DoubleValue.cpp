@@ -20,3 +20,8 @@ ValueType DoubleValue::getType() const
 {
     return ValueType::DOUBLE;
 }
+
+double DoubleValue::getValue() const 
+{
+    return value;
+}

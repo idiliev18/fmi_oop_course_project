@@ -1,10 +1,7 @@
-#ifndef TABLE_H
-#define TABLE_H
-
 #include "Cell.h"
 #include <windows.h>
 #include <string>
-#include <utility>
+#include <fstream>
 
 class Table {
 public:
@@ -21,6 +18,15 @@ public:
     bool isDouble(const std::string& str) const;
     void print() const;
     void handleInput();
+    void init();
+    void saveToFile(const std::string& filename) const;
+    void loadFromFile(const std::string& filename);
+    bool isFileLoaded() const;
+    void setFileLoaded(bool loaded);
+    const std::string& getCurrentFilePath() const;
+    void setCurrentFilePath(const std::string& path);
+    void clear();
+    std::pair<int, int> parseAddress(const std::string& address) const; 
 
 private:
     int width;
@@ -29,7 +35,10 @@ private:
     int currentRow;
     int currentCol;
     bool inEditMode;
+    bool fileLoaded;
+    std::string currentFilePath;
 
+    void resizeTable(int newWidth, int newHeight);
     int calculateMaxCellWidth() const;
     int getMaxCellValueLength() const;
     void moveUp();
@@ -44,9 +53,5 @@ private:
     void updateCell(int row, int col, bool highlight) const;
     void clearLine(int y) const;
     void clearScreen() const;
-
-    
-    std::pair<int, int> parseAddress(const std::string& address) const;
 };
 
-#endif // TABLE_H

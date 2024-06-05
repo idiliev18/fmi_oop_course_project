@@ -23,3 +23,7 @@ ValueType IntValue::getType() const
     return ValueType::INT;
 }
 
+double IntValue::getValue() const
+{
+    return value;
+}
